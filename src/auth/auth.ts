@@ -1,6 +1,6 @@
 import User from "../db/models/User";
 import express, { Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
+import jwt from "jsonwebtoken";
 
 export const signIn = (req: Request, res: Response) => {
   console.log("this is req. body: ", req.body.username);
@@ -9,16 +9,16 @@ export const signIn = (req: Request, res: Response) => {
 
 export const signUp = async (req: Request, res: Response) => {
   console.log("this is req. body: ", req.body);
-  const newUser = {
+  const newUser =  await User.create({
     username: req.body.username,
     email: req.body.email,
     password: req.body.password,
     address: req.body.address,
-  };
-  await User.create(newUser);
-  
+  });
+  // console.log(newUser, `this is the new user's id: ${newUser.id}`)
 
-  console.log("sign up works this is the user: ", newUser);
+  const token = jwt.sign({id: newUser.id }, process.env.TOKEN_KEY || 'undefined')
+  res.header('TOKEN: ', token).json(newUser);
 };
 
 export const user = (req: Request, res: Response) => {
