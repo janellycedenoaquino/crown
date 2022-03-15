@@ -1,8 +1,8 @@
 // //productOrder model
-import { Sequelize, Model, DataTypes, BuildOptions, Optional } from "sequelize";
-import { Association } from "sequelize";
 import db from "../db";
-// import User  from './User';
+//productOrder model
+import { Sequelize, Model, DataTypes, BuildOptions, Optional, Association } from "sequelize";
+// const User = require('./User')
 
 interface productOrderAttributes {
   id: number; // Note that the `null assertion` `!` is required in strict mode.

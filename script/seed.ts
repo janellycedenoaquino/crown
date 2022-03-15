@@ -12,7 +12,7 @@ const seed = async () => {
     //   email: "janelly@email.com",
     //   password: "janellyPassword",
     //   address: "Somewhere In The Bronx",
-    // },    
+    // },
     {
       username: "jane",
       email: "jane@email.com",
@@ -42,13 +42,11 @@ const seed = async () => {
       name: `productnum${i}`,
       image:
         "https://cdn4.iconfinder.com/data/icons/women-things-2/250/Beauty_cream_cream_cream_bottle_hair_conditioner_icon_icon-512.png",
-      price: randomNumGen(10+i, 25),
+      price: randomNumGen(10 + i, 25),
       description:
         "Hair conditioner is a hair care cosmetic product used to improve the feel, texture appearance and manageability of hair. Its main purpose is to reduce friction between strands of hair to allow smoother brushing or combing, which might otherwise cause damage to the scalp.",
-      stock: randomNumGen(0, 100),
+      stock: 20,
     };
-    console.log('this is the number genetated: ',productObj.description.length)
-
     productArray.push(productObj);
 
     //generating 20 orders half completed
@@ -65,11 +63,11 @@ const seed = async () => {
     // orderArray.push(orderObj);
 
     //generating 20 productOrder
-  //   let productOrder = {
-  //     orderid: randomNumGen(i, 100),
-  //     productid: randomNumGen(i, 100),
-  //   };
-  //   productOrderArray.push(productOrder);
+    //   let productOrder = {
+    //     orderid: randomNumGen(i, 100),
+    //     productid: randomNumGen(i, 100),
+    //   };
+    //   productOrderArray.push(productOrder);
   }
 
   await Promise.all(

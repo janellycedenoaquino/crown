@@ -50,11 +50,10 @@ Product.init(
       allowNull: false,
     },
     description: {
-      type: new DataTypes.STRING(300),
-      allowNull: false,
+      type: new DataTypes.STRING(400),
     },
     stock: {
-      type: new DataTypes.INTEGER(),
+      type: new DataTypes.INTEGER,
       allowNull: false,
     },
   },
