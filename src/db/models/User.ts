@@ -1,6 +1,6 @@
 import { Sequelize, Model, DataTypes, BuildOptions, Optional } from "sequelize";
 
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 import db from "../db";
 
 interface userAttributes {
@@ -30,10 +30,10 @@ class User extends Model<userAttributes, userInput> implements userAttributes {
     return bcrypt.compare(inputPassword, this.password);
   }
 
-  public encryptPassword = async (password: string): <promise>string =>{
+  public encryptPassword = async (password: string): Promise<string> => {
     const salt = await bcrypt.genSalt(5);
-    bcrypt.hash(password, salt)
-  }
+    return bcrypt.hash(password, salt);
+  };
 }
 User.init(
   {
@@ -66,6 +66,5 @@ User.init(
     paranoid: true,
   }
 );
-
 
 export default User;
