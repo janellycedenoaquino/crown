@@ -3,7 +3,7 @@ import { Sequelize, Model, DataTypes, BuildOptions, Optional } from "sequelize";
 import bcrypt from "bcryptjs";
 import db from "../db";
 
-interface userAttributes {
+export interface userAttributes {
   id: number; // Note that the `null assertion` `!` is required in strict mode.
   username: string;
   email: string;
@@ -26,11 +26,7 @@ class User extends Model<userAttributes, userInput> implements userAttributes {
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  public correctPassword(inputPassword: string) {
-    return bcrypt.compare(inputPassword, this.password);
-  }
-
-  public encryptPassword = async (password: string): Promise<string> => {
+  encryptPassword = async (password: string): Promise<string> => {
     const salt = await bcrypt.genSalt(5);
     return bcrypt.hash(password, salt);
   };
@@ -66,5 +62,36 @@ User.init(
     paranoid: true,
   }
 );
+//  function async correctPassword (inputPassword: string): Promise<boolean> {
+//   return await bcrypt.compare(inputPassword, this.password);
+// }
 
+export const encryptPassword = async (user: userAttributes)=> {
+    const salt = await bcrypt.genSalt(5);
+    user.password = await bcrypt.hash(user.password, salt)
+    // return bcrypt.hash(password, salt);
+};
 export default User;
+
+
+  //awaiting new user
+
+  // // User.beforeBulkCreate((users) => Promise.all(users.map(encryptPassword)));
+  // const newUser = User.create({
+  //   username: req.body.username,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  //   address: req.body.address,
+  // });
+  //  console.log(newUser)
+  // // creating a token for the user
+  // const token = jwt.sign(
+  //   { id: newUser.id },
+  //   process.env.TOKEN_KEY || "undefined"
+  // );
+  // //sending the user feedback
+  // res.header("TOKEN: ", token).json(newUser);
+  // res.json(newUser);
+
+  // User.beforeCreate(encryptPassword);
+  // User.beforeUpdate(encryptPassword);
