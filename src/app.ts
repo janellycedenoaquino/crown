@@ -7,6 +7,8 @@ const port = 3001;
 
 //middlewares
 app.use(morgan("dev"));
+app.use(express.json());
+
 //routes
 app.use("/auth", auth);
 // app.use("/api", api);
