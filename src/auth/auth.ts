@@ -9,10 +9,11 @@ export const signIn = (req: Request, res: Response) => {
 
 export const signUp = async (req: Request, res: Response) => {
   console.log("this is req. body: ", req.body);
+  let password = 'encripted'
   const newUser =  await User.create({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password,
+    password: password,
     address: req.body.address,
   });
   // console.log(newUser, `this is the new user's id: ${newUser.id}`)
