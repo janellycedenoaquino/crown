@@ -25,9 +25,9 @@ export const signUp = async (req: Request, res: Response) => {
     process.env.TOKEN_KEY || "undefined"
   );
 
-  console.log('this is the token sent to header ', token )
+  console.log('this is the token sent to header', token )
   //sending the user feedback
-  res.header("TOKEN: ", token).json(newUser);
+  res.header(["TOKEN: ", token]).json({"this works": "just fine"});
 
 };
 

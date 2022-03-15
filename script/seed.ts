@@ -1,4 +1,5 @@
 import { db, User, Product, Order, ProductOrder } from "../src/db/index";
+import { encryptPassword } from "../src/db/models/User"
 
 // import { User } from "./server/db/models/User";
 // const { db, User, Product, Order, ProductOrder } = require('./server/db/index')
@@ -70,6 +71,9 @@ const seed = async () => {
     //   productOrderArray.push(productOrder);
   }
 
+
+  User.beforeCreate(encryptPassword);
+  User.beforeUpdate(encryptPassword);
   await Promise.all(
     exampleUsers.map((user) => {
       return User.create(user);
