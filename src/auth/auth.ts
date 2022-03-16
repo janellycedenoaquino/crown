@@ -1,9 +1,45 @@
 import User, { encryptPassword } from "../db/models/User";
 import express, { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-export const signIn = (req: Request, res: Response) => {
-  console.log("this is req. body: ", req.body.username);
-  res.send("sign in works");
+import bcrypt from "bcryptjs";
+
+export const signIn = async (req: Request, res: Response) => {
+  console.log("this is req.body: ", req.body);
+  //finding user with that email
+  const currentUser = await User.findOne({
+    where: { email: req.body.email },
+  });
+
+  if (!currentUser) {
+    res
+      .status(401)
+      .send("This user isnt registered please sign up to create an account");
+  } else {
+    const correctPassword = await bcrypt.compare(
+      req.body.password,
+      currentUser.password
+    );
+
+    if (correctPassword) {
+      // creating a token for the user
+      const token = jwt.sign(
+        { id: currentUser.id },
+        process.env.TOKEN_KEY || "undefined",
+        {
+          expiresIn: "10h",
+        }
+      );
+      console.log("this is the token sent to header", token);
+
+      res.header(["TOKEN: ", token]).json(currentUser);
+      res.status(200).send(currentUser);
+    }
+    return res.status(401).json("invalid credentials");
+  }
+  //password validate
+
+  // return res.status(401).json("invalid credentials password");
+  // res.header(["TOKEN: ", token]).json(currentUser);
 };
 
 export const signUp = async (req: Request, res: Response) => {
@@ -25,10 +61,9 @@ export const signUp = async (req: Request, res: Response) => {
     process.env.TOKEN_KEY || "undefined"
   );
 
-  console.log('this is the token sent to header', token )
+  console.log("this is the token sent to header", token);
   //sending the user feedback
-  res.header(["TOKEN: ", token]).json({"this works": "just fine"});
-
+  res.header(["TOKEN: ", token]).json(newUser);
 };
 
 export const user = (req: Request, res: Response) => {

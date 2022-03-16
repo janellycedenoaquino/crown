@@ -12,6 +12,9 @@ export interface userAttributes {
   createdAt?: Date;
   updatedAt?: Date;
 }
+interface correctPassword extends User{
+
+}
 
 interface userInput extends Optional<userAttributes, "id"> {}
 interface userOutput extends Required<userAttributes> {}
@@ -26,10 +29,11 @@ class User extends Model<userAttributes, userInput> implements userAttributes {
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 
-  encryptPassword = async (password: string): Promise<string> => {
+  encryptPassword = async (user: userAttributes) => {
     const salt = await bcrypt.genSalt(5);
-    return bcrypt.hash(password, salt);
+    user.password = await bcrypt.hash(user.password, salt);
   };
+
 }
 User.init(
   {
@@ -62,36 +66,15 @@ User.init(
     paranoid: true,
   }
 );
-//  function async correctPassword (inputPassword: string): Promise<boolean> {
-//   return await bcrypt.compare(inputPassword, this.password);
-// }
-
-export const encryptPassword = async (user: userAttributes)=> {
-    const salt = await bcrypt.genSalt(5);
-    user.password = await bcrypt.hash(user.password, salt)
-    // return bcrypt.hash(password, salt);
+export const encryptPassword = async (user: userAttributes) => {
+  const salt = await bcrypt.genSalt(5);
+  user.password = await bcrypt.hash(user.password, salt);
 };
+
+// export async function correctPassword(
+//   this: User,
+//   currentUserPassword: string
+// ): Promise<boolean> {
+//   return await bcrypt.compare(currentUserPassword, this.password);
+// }
 export default User;
-
-
-  //awaiting new user
-
-  // // User.beforeBulkCreate((users) => Promise.all(users.map(encryptPassword)));
-  // const newUser = User.create({
-  //   username: req.body.username,
-  //   email: req.body.email,
-  //   password: req.body.password,
-  //   address: req.body.address,
-  // });
-  //  console.log(newUser)
-  // // creating a token for the user
-  // const token = jwt.sign(
-  //   { id: newUser.id },
-  //   process.env.TOKEN_KEY || "undefined"
-  // );
-  // //sending the user feedback
-  // res.header("TOKEN: ", token).json(newUser);
-  // res.json(newUser);
-
-  // User.beforeCreate(encryptPassword);
-  // User.beforeUpdate(encryptPassword);
