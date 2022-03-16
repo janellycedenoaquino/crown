@@ -1,5 +1,5 @@
 import User, { encryptPassword } from "../db/models/User";
-import express, { Request, Response } from "express";
+import express, { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
@@ -14,6 +14,7 @@ export const signIn = async (req: Request, res: Response) => {
     res
       .status(401)
       .send("This user isnt registered please sign up to create an account");
+    return;
   } else {
     const correctPassword = await bcrypt.compare(
       req.body.password,
@@ -31,8 +32,9 @@ export const signIn = async (req: Request, res: Response) => {
       );
       console.log("this is the token sent to header", token);
 
-      res.header(["TOKEN: ", token]).json(currentUser);
-      res.status(200).send(currentUser);
+      // res.header("TOKEN: ", token).json(currentUser);
+      res.header({ TOKEN: token }).status(200).send(currentUser);
+      return;
     }
     return res.status(401).json("invalid credentials");
   }
@@ -63,9 +65,23 @@ export const signUp = async (req: Request, res: Response) => {
 
   console.log("this is the token sent to header", token);
   //sending the user feedback
-  res.header(["TOKEN: ", token]).json(newUser);
+  res.header({ TOKEN: token }).json(newUser);
 };
 
+export const veryfyCredentials = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.header("TOKEN");
+  console.log("this was the token!");
+  if (!token) {
+    res.status(401).send("nope not todayyy shawty!");
+  } else {
+    console.log("the token! ", token);
+    res.send("okayyy I see you!");
+  }
+};
 export const user = (req: Request, res: Response) => {
   res.send("user works");
 };
