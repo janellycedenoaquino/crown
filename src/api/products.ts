@@ -57,7 +57,7 @@ router.delete(
 );
 
 // if no other works
-router.use((req: Request, res: Response, next: NextFunction) => {
+router.use(( req: Request, res: Response, next: NextFunction) => {
   res
     .status(404)
     .send("You look a little lost there...this page does not exist");
