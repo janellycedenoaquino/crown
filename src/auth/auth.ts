@@ -68,20 +68,21 @@ export const signUp = async (req: Request, res: Response) => {
   res.header({ TOKEN: token }).json(newUser);
 };
 
-export const veryfyCredentials = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const user = async (req: Request, res: Response) => {
   const token = req.header("TOKEN");
-  console.log("this was the token!");
   if (!token) {
     res.status(401).send("nope not todayyy shawty!");
-  } else {
-    console.log("the token! ", token);
-    res.send("okayyy I see you!");
+  } else if (token) {
+    const validated = jwt.verify(token, process.env.TOKEN_KEY || "undefined");
+    //returns an id
+    if (typeof validated === "object") {
+      console.log("th value of validated: ", validated.id);
+      let theUser = await User.findByPk(validated.id);
+      console.log(theUser);
+      res.send(`okayyy I see you ${theUser?.username}`);
+    }
+    // console.log("the token! ", token);
   }
 };
-export const user = (req: Request, res: Response) => {
-  res.send("user works");
-};
+
+//declaration merging is a thing!!!!

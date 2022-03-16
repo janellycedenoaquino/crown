@@ -14,5 +14,5 @@ app.use("/auth", auth);
 // app.use("/api", api);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("hola mundo! had to start over =( ");
+  res.send("hola mundo!");
 });

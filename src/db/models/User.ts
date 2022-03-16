@@ -12,9 +12,7 @@ export interface userAttributes {
   createdAt?: Date;
   updatedAt?: Date;
 }
-interface correctPassword extends User{
-
-}
+interface correctPassword extends User {}
 
 interface userInput extends Optional<userAttributes, "id"> {}
 interface userOutput extends Required<userAttributes> {}
@@ -33,7 +31,6 @@ class User extends Model<userAttributes, userInput> implements userAttributes {
     const salt = await bcrypt.genSalt(5);
     user.password = await bcrypt.hash(user.password, salt);
   };
-
 }
 User.init(
   {
@@ -50,6 +47,9 @@ User.init(
       type: new DataTypes.STRING(),
       allowNull: false,
       unique: true,
+      // validate: {
+      //   isEmail: true,
+      // },
     },
     password: {
       type: new DataTypes.STRING(),
@@ -71,10 +71,4 @@ export const encryptPassword = async (user: userAttributes) => {
   user.password = await bcrypt.hash(user.password, salt);
 };
 
-// export async function correctPassword(
-//   this: User,
-//   currentUserPassword: string
-// ): Promise<boolean> {
-//   return await bcrypt.compare(currentUserPassword, this.password);
-// }
 export default User;
