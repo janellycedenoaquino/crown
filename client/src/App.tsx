@@ -1,12 +1,10 @@
 import React from "react";
-// import SignUp from "./components/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import AllProducts from "./components/AllProducts";
 import Signin from "./components/SignIn";
 import Signup from "./components/Signup";
 import Cart from "./components/Cart";
-// import RoutesElement from "./Routes";
 
 const App: React.FunctionComponent<{}> = (props) => {
   return (

@@ -24,7 +24,7 @@ const AllProducts: React.FunctionComponent = (props) => {
     const res = await axios.get("http://localhost:3001/api/products/");
     return res.data;
   };
-  
+
   useEffect(() => {
     getProducts().then((res) => {
       setProducts(res);
@@ -62,7 +62,7 @@ const AllProducts: React.FunctionComponent = (props) => {
           </Container>
         </div>
       ) : (
-        <div>no products</div>
+        <div>There are no products please come back another time</div>
       )}
     </div>
   );
