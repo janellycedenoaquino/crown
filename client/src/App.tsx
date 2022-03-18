@@ -22,6 +22,6 @@ const App: React.FunctionComponent<{}> = (props) => {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

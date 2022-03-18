@@ -1,8 +1,16 @@
-import React from "react";
-import { TextField, Box, Container, Grid, Paper } from "@mui/material";
-// import { shadeTextFieldStylesHook } from '@mui-treasury/styles/textField/shade';
+import React, { useState, SyntheticEvent } from "react";
+import { TextField, Box, Container, Grid, Paper, Button } from "@mui/material";
 
-const Signin: React.FunctionComponent<{}> = (props) => {
+const Signin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (event: SyntheticEvent) => {
+    event.preventDefault();
+    console.log(event);
+  };
+
+  console.log("the user outside");
   return (
     <div id="example">
       <Box
@@ -11,32 +19,41 @@ const Signin: React.FunctionComponent<{}> = (props) => {
         alignItems="center"
         minHeight="500px"
         style={{
-          width: 280,
-          margin: "20px auto",
+          width: 300,
+          margin: "5px auto",
         }}
         sx={{ flexGrow: 2 }}
       >
         <Container>
-          <div>
-            <TextField
-              label={"Email"}
-              placeholder={"Email"}
-              margin={"normal"}
-              required
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ disableUnderline: true }}
-            />
-          </div>
-          <div>
-            <TextField
-              label={"Password"}
-              placeholder={"Password"}
-              margin={"normal"}
-              required
-              InputLabelProps={{ shrink: true }}
-              InputProps={{ disableUnderline: true }}
-            />
-          </div>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <TextField
+                label={"Email"}
+                name={"email"}
+                placeholder={"Email Address"}
+                margin={"normal"}
+                required
+                InputLabelProps={{ shrink: true }}
+                InputProps={{ disableUnderline: true }}
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </div>
+            <div>
+              <TextField
+                label={"Password"}
+                name={"password"}
+                placeholder={"Password"}
+                margin={"normal"}
+                required
+                InputLabelProps={{ shrink: true }}
+                InputProps={{ disableUnderline: true }}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </div>
+            <Button>Sign In</Button>
+          </form>
         </Container>
       </Box>
     </div>

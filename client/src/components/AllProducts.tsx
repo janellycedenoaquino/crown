@@ -7,6 +7,7 @@ import {
   Typography,
   Grid,
   Card,
+  Button,
 } from "@mui/material";
 
 interface productType {
@@ -23,7 +24,7 @@ const AllProducts: React.FunctionComponent = (props) => {
     const res = await axios.get("http://localhost:3001/api/products/");
     return res.data;
   };
-
+  
   useEffect(() => {
     getProducts().then((res) => {
       setProducts(res);
@@ -35,7 +36,6 @@ const AllProducts: React.FunctionComponent = (props) => {
       {products ? (
         <div>
           <Container
-            maxWidth="md"
             style={{
               margin: "40px auto",
             }}
@@ -43,13 +43,17 @@ const AllProducts: React.FunctionComponent = (props) => {
             <Grid container spacing={4}>
               {products.map((product: productType) => {
                 return (
-                  <Grid item key={product.id} xs={200} sm={6} md={6}>
+                  <Grid item key={product.id} xs={12} sm={6} md={4}>
                     <Card style={{ padding: "20px" }}>
-                      <CardMedia style={{ paddingTop: "50%" }}image={product.image} />
+                      <CardMedia
+                        style={{ paddingTop: "50%" }}
+                        image={product.image}
+                      />
                       <CardContent style={{ flexGrow: 1 }}>
                         <Typography>{product.name}</Typography>
                         <Typography>{product.description}</Typography>
                       </CardContent>
+                      <Button size="small" variant="outlined">add to cart</Button>
                     </Card>
                   </Grid>
                 );
@@ -63,18 +67,5 @@ const AllProducts: React.FunctionComponent = (props) => {
     </div>
   );
 };
-
-// const getAllProducts = async function () {
-//   try {
-//     await axios.get("http://localhost:3001/api/products").then((data) => {
-//       console.log(
-//         "helllllloooooo frommmm gettt alllllll proddduuuuuuucccccctttttssss"
-//       );
-//       return data.data;
-//     });
-//   } catch (error) {
-//     console.log("there was an error inside all products", error);
-//   }
-// };
 
 export default AllProducts;
