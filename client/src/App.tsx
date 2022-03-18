@@ -8,7 +8,7 @@ import Signup from "./components/Signup";
 import Cart from "./components/Cart";
 // import RoutesElement from "./Routes";
 
-function App(): JSX.Element {
+const App: React.FunctionComponent<{}> = (props) => {
   return (
     <>
       <BrowserRouter>

@@ -1,6 +1,8 @@
 import React from "react";
 
-function Cart(): JSX.Element {
+const Cart: React.FunctionComponent<{}> = (props) =>  {
+  console.log('this is the cart component')
+  let newVar = 'now it worked'
   return (
     <div className="App">
       <h1>cart</h1>

@@ -1,6 +1,7 @@
 import React from "react";
 
-function Home(): JSX.Element {
+const Home: React.FunctionComponent<{}> = (props) => {
+  console.log('console.log works here ')
   return (
     <div className="App">
       <h1>WELCOME</h1>
