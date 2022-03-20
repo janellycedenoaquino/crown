@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { item } from "../store/cart";
+import { useSelector, useDispatch } from "react-redux";
+import { currentUser } from "../store/auth";
+import { addItem } from "../store/cart";
 import {
   Container,
   CardMedia,
@@ -10,20 +14,33 @@ import {
   Button,
 } from "@mui/material";
 
-interface productType {
-  id?: number;
-  name?: string;
-  image?: string;
-  price?: number;
-  description?: string;
-  stock?: number;
-}
-
 const AllProducts: React.FunctionComponent = (props) => {
-  const [products, setProducts] = useState<productType[]>([]);
+  let currUser = localStorage.getItem("currentUser");
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState<item[]>([]);
   const getProducts = async () => {
     const res = await axios.get("http://localhost:3001/api/products/");
     return res.data;
+  };
+
+  const addToCart = async (currUser: string, product: item) => {
+    // dispatch();
+    console.log(
+      "adding to shopping cart currUser:",
+      currUser,
+      " and product: ",
+      product
+    );
+    if (currUser.length < 1) {
+      dispatch(addItem(0, product));
+    } else {
+      let userID = JSON.parse(currUser).id;
+      console.log(
+        "the user is signed in ",
+        currUser.split(",")[0][currUser.split(",")[0].length - 1]//change later
+      );
+      dispatch(addItem(userID, product));
+    }
   };
 
   useEffect(() => {
@@ -42,7 +59,7 @@ const AllProducts: React.FunctionComponent = (props) => {
             }}
           >
             <Grid container spacing={4}>
-              {products.map((product: productType) => {
+              {products.map((product: item) => {
                 return (
                   <Grid item key={product.id} xs={12} sm={6} md={4}>
                     <Card style={{ padding: "20px" }}>
@@ -54,7 +71,15 @@ const AllProducts: React.FunctionComponent = (props) => {
                         <Typography>{product.name}</Typography>
                         <Typography>{product.description}</Typography>
                       </CardContent>
-                      <Button size="small" variant="outlined">add to cart</Button>
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() => {
+                          addToCart(currUser || "", product);
+                        }}
+                      >
+                        add to cart
+                      </Button>
                     </Card>
                   </Grid>
                 );

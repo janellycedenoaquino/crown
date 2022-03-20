@@ -65,7 +65,7 @@ type action = {
   type: string;
   payload: object;
 };
-type currentUser = {
+export type currentUser = {
   id?: number;
   username?: string;
   email?: string;
