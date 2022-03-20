@@ -11,7 +11,6 @@ import {
   Button,
 } from "@mui/material";
 
-
 interface productType {
   id?: number;
   name?: string;
@@ -57,7 +56,7 @@ const Home: React.FunctionComponent = (props) => {
               justifyContent: "space-around",
             }}
           >
-            <Grid item xs={12} sm={12} md={12}>
+            <Grid item xs={12} sm={6} md={4}>
               <div
                 style={{
                   margin: "100px auto",
@@ -87,7 +86,13 @@ const Home: React.FunctionComponent = (props) => {
             </Grid>
 
             <Grid item xs={12} sm={6} md={4}>
-              <div>
+              <div
+                style={{
+                  margin: "40px",
+                  marginRight: "50px",
+                  justifyContent: "center",
+                }}
+              >
                 <img src="https://i.insider.com/60356a70bed5c50011a2c214?width=700" />
               </div>
             </Grid>
@@ -107,7 +112,6 @@ const Home: React.FunctionComponent = (props) => {
                     padding: "2%",
                   }}
                 >
-                  20%
                 </h1>
               </div>
             </Container>
