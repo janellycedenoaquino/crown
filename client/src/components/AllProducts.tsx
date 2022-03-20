@@ -24,21 +24,10 @@ const AllProducts: React.FunctionComponent = (props) => {
   };
 
   const addToCart = async (currUser: string, product: item) => {
-    // dispatch();
-    console.log(
-      "adding to shopping cart currUser:",
-      currUser,
-      " and product: ",
-      product
-    );
     if (currUser.length < 1) {
       dispatch(addItem(0, product));
     } else {
       let userID = JSON.parse(currUser).id;
-      console.log(
-        "the user is signed in ",
-        currUser.split(",")[0][currUser.split(",")[0].length - 1]//change later
-      );
       dispatch(addItem(userID, product));
     }
   };

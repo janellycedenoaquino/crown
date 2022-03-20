@@ -4,6 +4,7 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/auth";
 
+
 const Navbar = () => {
   const dispatch = useDispatch();
   let currUser = localStorage.getItem("currentUser");
@@ -74,10 +75,6 @@ const Navbar = () => {
                         </a>
                       </div>
                     </nav>
-                    {/* <Link to="/product">PRODUCTS</Link>
-                <Link to="/signIn">SIGN IN</Link>
-                <Link to="/signUp">SIGN UP</Link>
-                <Link to="/cart">CART</Link> */}
                   </Typography>
                 </Toolbar>
               </Container>

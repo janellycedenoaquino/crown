@@ -12,9 +12,9 @@ const Cart = () => {
         cartArr.push(item);
       });
       setCart(cartArr);
+      console.log(cart);
     }
   };
-  
   useEffect(() => {
     handleCart();
   });

@@ -5,6 +5,7 @@ import { signUp } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+
 const Signup = () => {
   let history = useNavigate();
   let currUser = localStorage.getItem("currentUser");
