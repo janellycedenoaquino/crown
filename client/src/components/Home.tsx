@@ -11,6 +11,7 @@ import {
   Button,
 } from "@mui/material";
 
+
 interface productType {
   id?: number;
   name?: string;
@@ -40,7 +41,6 @@ const Home: React.FunctionComponent = (props) => {
 
   useEffect(() => {
     getProducts().then(() => {
-      console.log("gottem");
       return;
     });
   }, []);
@@ -83,7 +83,6 @@ const Home: React.FunctionComponent = (props) => {
                 </h3>
 
                 <a href="/products">SHOP ALL PRODUCTS </a>
-                {/* <Route path="/" element={<Home />}>Shop Now</Route> */}
               </div>
             </Grid>
 

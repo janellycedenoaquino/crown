@@ -1,19 +1,12 @@
 import { db, User, Product, Order, ProductOrder } from "../src/db/index";
 import { encryptPassword } from "../src/db/models/User"
 
-// import { User } from "./server/db/models/User";
-// const { db, User, Product, Order, ProductOrder } = require('./server/db/index')
-// console.log("this is user in seed: ", User);
+
 const seed = async () => {
   await db.sync({ force: true });
 
   const exampleUsers = [
-    // {
-    //   username: "janelly",
-    //   email: "janelly@email.com",
-    //   password: "janellyPassword",
-    //   address: "Somewhere In The Bronx",
-    // },
+
     {
       username: "jane",
       email: "jane@email.com",
@@ -38,7 +31,6 @@ const seed = async () => {
   let orderArray = [];
   let productOrderArray = [];
   for (let i = 0; i <= 20; i++) {
-    //generating 20 products
     let productObj = {
       name: `productnum${i}`,
       image:

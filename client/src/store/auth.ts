@@ -60,6 +60,7 @@ export const logout = () => async (dispatch: Dispatch) => {
   }
 };
 
+
 //types & interface
 type action = {
   type: string;

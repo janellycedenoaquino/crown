@@ -43,6 +43,7 @@ export const getCart = (id: number) => async (dispatch: Dispatch) => {
   }
 };
 
+
 let localStorageArr: Array<item> = localStorage.getItem("cart")
   ? JSON.parse(localStorage.getItem("cart") || "")
   : [];
@@ -51,7 +52,6 @@ export const addItem =
     try {
       // const res = await axios.post(`api/cart/${id}`, item);
       // const newItem = res.data;
-      // console.log(newItem);
       dispatch(_addItem(item));
       console.log("localstoragearr: ", localStorageArr);
       if (localStorageArr[1]) {

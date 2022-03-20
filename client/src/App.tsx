@@ -12,7 +12,6 @@ const App = () => {
     (async () => {
       console.log("inside useEffect home page");
       let res = await axios.get("http://localhost:3001/auth/user", {
-        // body: userObj,
       });
       console.log("this is res: ", res);
       console.log("this is the response ");
@@ -32,5 +31,6 @@ const App = () => {
     </>
   );
 };
+
 
 export default App;
