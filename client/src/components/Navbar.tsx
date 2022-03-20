@@ -41,7 +41,7 @@ const Navbar = () => {
                           logout{" "}
                         </a>
                         <a href="/cart">
-                          <ShoppingBagIcon></ShoppingBagIcon>{" "}
+                          <ShoppingBagIcon />
                         </a>
                       </div>
                     </nav>

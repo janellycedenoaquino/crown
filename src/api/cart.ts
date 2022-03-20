@@ -23,16 +23,9 @@ router.get("/:id", async (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.post("/:id", async (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.params.id,'is the number of the params cart api')
   try {
-    const order = await Order.findOne({
-      where: {
-        id: req.params.id,
-        completed: false,
-      },
-      include: Product,
-    });
-    let prodOrder;
-    if (order === null) {
+
       let newOrder = await Order.create({
         id: Number(req.params.id),
         completed: false,
@@ -46,8 +39,8 @@ router.post("/:id", async (req: Request, res: Response, next: NextFunction) => {
     //     }
     // })
 
-      res.status(200).send(order);
-    }
+    //   res.status(200).send(order);
+    // }
   } catch (error) {
     res.send("there are no products available");
     next(error);
