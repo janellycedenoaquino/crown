@@ -60,7 +60,7 @@ router.delete(
 router.use(( req: Request, res: Response, next: NextFunction) => {
   res
     .status(404)
-    .send("You look a little lost there...this page does not exist");
+    .send("DNE");
   const error = Error("DNE");
   next(error);
 });

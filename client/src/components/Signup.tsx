@@ -1,10 +1,14 @@
-import React, { useState, SyntheticEvent } from "react";
+import React, { useState, SyntheticEvent, useEffect } from "react";
 import { TextField, Box, Container, Button } from "@mui/material";
 import axios from "axios";
+import { signUp } from "../store/auth";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Signup = () => {
   let history = useNavigate();
+  let currUser = localStorage.getItem("currentUser");
+  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -18,15 +22,15 @@ const Signup = () => {
       password,
       address,
     };
-    console.log("this is the user object", userObj);
-    console.log("inside handle submit");
-    await axios.post("http://localhost:3001/auth/signup", {
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userObj }),
-    });
-    history("/signin");
+    dispatch(signUp(userObj));
+    history("/");
   };
 
+  useEffect(() => {
+    if (currUser !== null && currUser.length > 1) {
+      history("/");
+    }
+  });
   return (
     <div>
       <Box
@@ -75,6 +79,7 @@ const Signup = () => {
                 required
                 InputLabelProps={{ shrink: true }}
                 InputProps={{ disableUnderline: true }}
+                type="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
               />

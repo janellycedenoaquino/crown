@@ -1,16 +1,31 @@
-import React, { useState, SyntheticEvent } from "react";
+import React, { useState, SyntheticEvent, useEffect } from "react";
 import { TextField, Box, Container, Grid, Paper, Button } from "@mui/material";
+import { login } from "../store/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Signin = () => {
+  let history = useNavigate();
+  let currUser = localStorage.getItem("currentUser");
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event: SyntheticEvent) => {
+  const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
-    console.log(event);
+    let userObj = {
+      email,
+      password,
+    };
+    dispatch(login(userObj));
+    history("/");
   };
-
-  console.log("the user outside");
+  useEffect(() => {
+    if (currUser !== null && currUser.length > 1) {
+      history("/");
+    }
+  });
   return (
     <div id="example">
       <Box
@@ -43,6 +58,7 @@ const Signin = () => {
               <TextField
                 label={"Password"}
                 name={"password"}
+                type="password"
                 placeholder={"Password"}
                 margin={"normal"}
                 required
@@ -52,7 +68,7 @@ const Signin = () => {
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
-            <Button>Sign In</Button>
+            <Button type="submit">Sign In</Button>
           </form>
         </Container>
       </Box>

@@ -4,12 +4,16 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 export const signIn = async (req: Request, res: Response) => {
-  console.log("this is req.body: ", req.body);
+  // console.log("this is req.body: ", req.body.email); //insomia app
+  // [1] this is req.body:  janesds312@email.com insomnia response
+  console.log("this is req.body: ", req.body.body["email"]);
+  //web response [1] this is req.body:  a@gmail.com
+
   //finding user with that email
   const currentUser = await User.findOne({
-    where: { email: req.body.email },
+    where: { email: req.body.body["email"] },
   });
-
+  console.log("this is the current user: ", currentUser);
   if (!currentUser) {
     res
       .status(401)
@@ -17,7 +21,7 @@ export const signIn = async (req: Request, res: Response) => {
     return;
   } else {
     const correctPassword = await bcrypt.compare(
-      req.body.password,
+      req.body.body["password"],
       currentUser.password
     );
 
@@ -30,32 +34,30 @@ export const signIn = async (req: Request, res: Response) => {
           expiresIn: "10h",
         }
       );
+      let headerAndUser = {
+        TOKEN: token,
+        currentUser
+      }
       console.log("this is the token sent to header", token);
-
       // res.header("TOKEN: ", token).json(currentUser);
-      res.header({ TOKEN: token }).status(200).send(currentUser);
+      res.header({ TOKEN: token }).status(200).send(headerAndUser);
       return;
     }
     return res.status(401).json("invalid credentials");
   }
-  //password validate
 
   // return res.status(401).json("invalid credentials password");
   // res.header(["TOKEN: ", token]).json(currentUser);
 };
 
 export const signUp = async (req: Request, res: Response) => {
+  console.log("this is the req.body from the backend: ", req.body.body);
+
   //before we create/update the user
   User.beforeCreate(encryptPassword);
   User.beforeUpdate(encryptPassword);
-
   //before the new user is created
-  const newUser = await User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-    address: req.body.address,
-  });
+  const newUser = await User.create(req.body.body);
 
   // creating a token for the user
   const token = jwt.sign(
@@ -65,10 +67,12 @@ export const signUp = async (req: Request, res: Response) => {
 
   console.log("this is the token sent to header", token);
   //sending the user feedback
-  res.header({ TOKEN: token }).json(newUser);
+  res.send({ TOKEN: token });
 };
 
 export const user = async (req: Request, res: Response) => {
+  console.log("we here!!!! auth/user: header:    ", req.header);
+  console.log("we here!!!! auth/user: body:  ", req.body);
   const token = req.header("TOKEN");
   if (!token) {
     res.status(401).send("nope not todayyy shawty!");

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import {
   Container,
   CardMedia,
@@ -18,6 +18,7 @@ interface productType {
   description?: string;
   stock?: number;
 }
+
 const AllProducts: React.FunctionComponent = (props) => {
   const [products, setProducts] = useState<productType[]>([]);
   const getProducts = async () => {
