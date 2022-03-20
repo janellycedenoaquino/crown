@@ -14,6 +14,7 @@ const Cart = () => {
       setCart(cartArr);
     }
   };
+  
   useEffect(() => {
     handleCart();
   });
