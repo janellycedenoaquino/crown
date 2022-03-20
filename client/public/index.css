@@ -8,3 +8,16 @@ a {
   color: inherit;
   text-decoration: none;
 }
+img #homeImg {
+  margin: "20px auto";
+  width: "100%";
+  display: flex;
+  justify-content: space-around;
+}
+
+#home {
+  margin: "50px auto";
+  width: "100%";
+  display: flex;
+  justify-content: space-around;
+}
