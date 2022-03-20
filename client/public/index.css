@@ -1,4 +1,10 @@
-#navbar {
+#id {
   display: flex;
   justify-content: space-evenly;
+  background-color: black;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
 }

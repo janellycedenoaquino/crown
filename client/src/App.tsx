@@ -1,14 +1,23 @@
-import React from "react";
-// import SignUp from "./components/Signup";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import AllProducts from "./components/AllProducts";
 import Signin from "./components/SignIn";
 import Signup from "./components/Signup";
 import Cart from "./components/Cart";
-// import RoutesElement from "./Routes";
+import axios from "axios";
 
-function App(): JSX.Element {
+const App = () => {
+  useEffect(() => {
+    (async () => {
+      console.log("inside useEffect home page");
+      let res = await axios.get("http://localhost:3001/auth/user", {
+        // body: userObj,
+      });
+      console.log("this is res: ", res);
+      console.log("this is the response ");
+    })(); //IIFE
+  });
   return (
     <>
       <BrowserRouter>
@@ -22,6 +31,6 @@ function App(): JSX.Element {
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

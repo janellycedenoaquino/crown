@@ -1,7 +1,13 @@
 // //productOrder model
 import db from "../db";
-//productOrder model
-import { Sequelize, Model, DataTypes, BuildOptions, Optional, Association } from "sequelize";
+import {
+  Sequelize,
+  Model,
+  DataTypes,
+  BuildOptions,
+  Optional,
+  Association,
+} from "sequelize";
 // const User = require('./User')
 
 interface productOrderAttributes {
