@@ -30,4 +30,4 @@ all products view
 
 
 Although I was only able to work on this application for 5 days I was able to have most of my backend functionality working, a sign in and sign up component that work as intended and some of my cart functionality completed. I was able to use 98.4% of typescript and the remaining 1.6% of html and css.
-
+https://github.com/janellycedenoaquino/crown/projects/1
