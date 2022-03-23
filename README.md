@@ -1,5 +1,6 @@
 # crown 
 crown is an an e-commerce site that allows users sign up and sign in and log out of their account, view a list of products for which they can purchase.
+NPM START <-- starts both the front and back end concurrently 
 https://crown-application.herokuapp.com/
 
 # MVC architechtural pattern
