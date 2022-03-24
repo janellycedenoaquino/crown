@@ -32,5 +32,5 @@ all products view
 <img width="1416" alt="allProductsView" src="https://user-images.githubusercontent.com/54867270/159174683-47bf1d7f-6357-4fc1-8892-4eba41dbd805.png">
 
 
-Although I was only able to work on this application for five days I was able to have most of my backend functionality working, a sign in and sign up component that work as intended and some of my cart functionality completed. I was able to use 98.4% of typescript and the remaining 2.1% of html and css.
+Although I was only able to work on this application for five days I was able to have most of my backend functionality working, a sign in and sign up component that work as intended and some of my cart functionality completed. I was able to use 97.9% of typescript and the remaining 2.1% of html and css.
 https://github.com/janellycedenoaquino/crown/projects/1
